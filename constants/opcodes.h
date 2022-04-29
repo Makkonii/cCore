@@ -1,0 +1,7 @@
+#ifndef CCORE_OPCODES_H
+#define CCORE_OPCODES_H
+
+#define CMD_AUTH_LOGON_CHALLENGE 0x00
+
+#endif //CCORE_OPCODES_H
+
