@@ -1,7 +1,7 @@
 #include "loginOpCodeHandler.h"
 
-struct authStruct parseLogonChallenge(const uint8_t *buffer) {
-    struct authStruct c;
+struct challengeClient parseLogonChallenge(const uint8_t *buffer) {
+    struct challengeClient c;
     bytesToArray(c.version, buffer, 0x08,
                  sizeof(c.version));
 

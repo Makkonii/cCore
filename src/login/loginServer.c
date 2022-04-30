@@ -3,7 +3,7 @@
 void handleOpCode(uint8_t buffer[]) {
     uint8_t opCode = buffer[0];
     if (opCode == CMD_AUTH_LOGON_CHALLENGE) {
-        parseLogonChallenge(buffer);
+        struct challengeClient authChallenge = parseLogonChallenge(buffer);
     }
 }
 
