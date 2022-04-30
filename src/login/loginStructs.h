@@ -16,6 +16,15 @@ struct challengeClient {
 };
 
 struct challengeServer{
+    uint8_t opcode;
+    uint8_t protocol_version;
+    uint8_t result;
+    uint8_t server_public_key[32];
+    uint8_t generator_len;
+    uint8_t generator;
+    uint8_t large_safe_prime_len[32];
+    uint8_t salt[32];
+    uint8_t crc_salt[16];
 
 };
 
