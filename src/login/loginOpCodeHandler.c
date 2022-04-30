@@ -18,12 +18,12 @@ struct challengeClient parseLogonChallenge(const uint8_t *buffer) {
     bytesToArray(c.locale, buffer, 0x15, sizeof(c.locale));
     changeEndianArray(c.locale, sizeof(c.locale));
 
-    bytesToUint32(&c.worldRegion_bias, buffer, 0x19);
-    changeEndianUint32(&c.worldRegion_bias);
+    bytesToUint32(&c.worldregion_bias, buffer, 0x19);
+    changeEndianUint32(&c.worldregion_bias);
 
     bytesToUint32(&c.ip, buffer, 0x1D);
 
-    c.account_name_length = buffer[33];
+    c.account_name_length = buffer[0x21];
     bytesToArray(c.account_name, buffer, 0x22,
                  c.account_name_length);
     return c;
