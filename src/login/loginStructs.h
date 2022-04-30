@@ -14,4 +14,9 @@ struct authStruct {
     uint8_t account_name_length;
     uint8_t account_name[255];
 };
+
+struct challengeServer{
+
+};
+
 #endif //CCORE_LOGINSTRUCTS_H
