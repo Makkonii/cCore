@@ -21,7 +21,7 @@ void createLoginServer() {
 
     if (bind(socket_desc, (struct sockaddr *) &loginServer,
              sizeof(loginServer)) == -1) {
-        perror("socket_desc");
+        printf("Error: %s\n", strerror(errno));
         shutdown(socket_desc, SHUT_RDWR);
         return;
     }
