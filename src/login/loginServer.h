@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
-#include "loginUtils/loginStructs.h"
+#include "loginStructs.h"
 #include "../../constants/opcodes.h"
 #include "loginOpCodeHandler.h"
 

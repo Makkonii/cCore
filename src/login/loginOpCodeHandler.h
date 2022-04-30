@@ -1,7 +1,7 @@
 #ifndef CCORE_LOGINOPCODEHANDLER_H
 #define CCORE_LOGINOPCODEHANDLER_H
 
-#include "loginUtils/loginStructs.h"
+#include "loginStructs.h"
 #include "../utils/bufferReader.h"
 
 struct challengeClient parseLogonChallenge(const uint8_t *buffer);
