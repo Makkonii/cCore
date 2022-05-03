@@ -1,5 +1,7 @@
 #include "loginServer.h"
 
+#define TEST_SALT
+
 void handleOpCode(uint8_t buffer[]) {
     uint8_t opCode = buffer[0];
     if (opCode == CMD_AUTH_LOGON_CHALLENGE) {
@@ -7,11 +9,19 @@ void handleOpCode(uint8_t buffer[]) {
     }
 }
 
+void closeNetwork(int socketDesc, int loginSocket) {
+    shutdown(socketDesc, SHUT_RDWR);
+    close(socketDesc);
+    shutdown(loginSocket, SHUT_RDWR);
+    close(loginSocket);
+}
+
 void createLoginServer() {
-    int socket_desc;
+    int socketDesc;
+    int loginSocket;
     struct sockaddr_in loginServer;
-    socket_desc = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (socket_desc == -1) {
+    socketDesc = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (socketDesc == -1) {
         printf("Unable to create socket");
     }
 
@@ -19,28 +29,31 @@ void createLoginServer() {
     loginServer.sin_family = AF_INET;
     loginServer.sin_port = htons(LOGINSERVER_PORT);
 
-    if (bind(socket_desc, (struct sockaddr *) &loginServer,
+    if (bind(socketDesc, (struct sockaddr *) &loginServer,
              sizeof(loginServer)) == -1) {
-        printf("Error: %s\n", strerror(errno));
-        shutdown(socket_desc, SHUT_RDWR);
+        printf("loginDesc bind error: %s\n", strerror(errno));
+        closeNetwork(socketDesc, loginSocket);
         return;
     }
-    if (listen(socket_desc, 1) == -1) {
-        shutdown(socket_desc, SHUT_RDWR);
-        close(socket_desc);
+
+    if (listen(socketDesc, 1) == -1) {
+        closeNetwork(socketDesc, loginSocket);
         return;
     }
+
     int addressSize = sizeof(loginServer);
-    int loginSocket = accept(socket_desc, (struct sockaddr *) &loginServer,
-                             (socklen_t *) &addressSize);
+    loginSocket = accept(socketDesc, (struct sockaddr *) &loginServer,
+                         (socklen_t *) &addressSize);
+
     if (loginSocket == -1) {
-        printf("Error: %s\n", strerror(errno));
-        shutdown(loginSocket, SHUT_RDWR);
-        close(loginSocket);
+        printf("loginSocket accept error: %s\n", strerror(errno));
+        closeNetwork(socketDesc, loginSocket);
         return;
     }
+
     uint8_t buffer[512];
-    ssize_t result = recv(loginSocket, buffer, 512, 0);
+    recv(loginSocket, buffer, 512, 0);
     handleOpCode(buffer);
+    closeNetwork(socketDesc, loginSocket);
 }
 
