@@ -13,7 +13,7 @@ void bytesToUint32(uint32_t *dest, const uint8_t *buffer, size_t offset);
 void bytesToUint16(uint16_t *dest, const uint8_t *buffer, size_t offset);
 
 void changeEndianArray(uint8_t *arr, uint8_t arrLngth);
-void changeEndianUint16(const uint16_t *uint16);
-void changeEndianUint32(const uint32_t *uint32);
+void changeEndianUint16(uint16_t *uint16);
+void changeEndianUint32(uint32_t *uint32);
 
 #endif //CCORE_BUFFERREADER_H

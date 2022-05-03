@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "bufferReader.h"
 
 void
@@ -23,10 +24,10 @@ void changeEndianArray(uint8_t *arr, uint8_t arrLngth){
     }
 }
 
-void changeEndianUint16(const uint16_t *uint16){
-    bswap_16(*uint16);
+void changeEndianUint16(uint16_t *uint16){
+    *uint16 = bswap_16(*uint16);
 }
 
-void changeEndianUint32(const uint32_t *uint32){
-    bswap_16(*uint32);
+void changeEndianUint32(uint32_t *uint32){
+    *uint32 = bswap_32(*uint32);
 }
